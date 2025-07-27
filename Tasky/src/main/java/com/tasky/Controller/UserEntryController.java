@@ -1,6 +1,7 @@
 package com.tasky.Controller;
 
 import com.tasky.Entity.User;
+import com.tasky.Entity.WorkRequest;
 import com.tasky.Service.UserEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,12 @@ public class UserEntryController
     public ResponseEntity<?> SaveUserInDB(@RequestBody User user)
     {
         return userService.SaveUser(user);
+    }
+
+    @PostMapping ("/AddTask")
+    public ResponseEntity<?> AddTask(@RequestBody WorkRequest user)
+    {
+        return userService.addWork(user.getWork(),user.getUserName());
     }
 
 }
