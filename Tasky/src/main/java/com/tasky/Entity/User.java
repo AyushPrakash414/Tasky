@@ -11,16 +11,76 @@ import java.util.List;
 
 @Getter
 @Setter
-@Component
-@Document(collection ="TaskyUsers")
-public class User
-{
+@Document(collection = "TaskyUsers")
+public class User {
+
     @Indexed(unique = true)
-    private String UserName;
-    private String Password;
-    private String Email;
-    private List<String> RemainingWork;
-    private List<String>Roles;
+    private String userName;
+
+    private String password;
+    private String email;
+
+    private List<String> remainingWork;
+    private List<String> roles;
+
     private ObjectId id;
-    private String Quotes;
+
+    private String quotes;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<String> getRemainingWork() {
+        return remainingWork;
+    }
+
+    public void setRemainingWork(List<String> remainingWork) {
+        this.remainingWork = remainingWork;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public String getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(String quotes) {
+        this.quotes = quotes;
+    }
 }
+
