@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -50,6 +51,33 @@ public class UserEntryService
                     .body("User not found.");
         }
     }
+
+    public ResponseEntity<?> removeWork(String userName,String work)
+    {
+        if (work==null||userName==null) return ResponseEntity.badRequest().body("Username or work cannot be null.");
+        Optional<User> userInDB = userRepo.findByuserName(userName);
+        if (userInDB.isPresent())
+        {
+            List<String> worksOfUser =userInDB.get().getRemainingWork();
+            boolean exists = worksOfUser.contains(work);
+            if (exists)
+            {
+                worksOfUser.remove(work);
+                userInDB.get().setRemainingWork(worksOfUser);
+                userRepo.save(userInDB.get());
+                return ResponseEntity.ok("Work removed successfully.");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("work not found.");
+            }
+
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
 
 
 }

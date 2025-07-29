@@ -1,5 +1,6 @@
 package com.tasky.Controller;
 
+import com.tasky.Entity.DeleteWorkRequest;
 import com.tasky.Entity.User;
 import com.tasky.Entity.WorkRequest;
 import com.tasky.Service.UserEntryService;
@@ -17,16 +18,17 @@ public class UserEntryController
     @Autowired
     private UserEntryService userService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> SaveUserInDB(@RequestBody User user)
-    {
-        return userService.SaveUser(user);
-    }
 
     @PostMapping ("/AddTask")
     public ResponseEntity<?> AddTask(@RequestBody WorkRequest user)
     {
         return userService.addWork(user.getWork(),user.getUserName());
+    }
+
+    @PostMapping("/deleteWork")
+    public ResponseEntity<?> DeleteWork(@RequestBody WorkRequest request)
+    {
+        return userService.removeWork(request.getUserName(), request.getWork());
     }
 
 }
