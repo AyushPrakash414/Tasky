@@ -1,5 +1,6 @@
 package com.tasky.Service;
 
+import com.tasky.Entity.EmailDTO;
 import com.tasky.Entity.User;
 import com.tasky.Repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ import java.util.Optional;
 @Component
 public class UserEntryService
 {
+    @Autowired
+    private EmailService service;
+    @Autowired
+    private EmailDTO email;
     @Autowired
     private userRepository userRepo;
     public ResponseEntity<?> SaveUser(User user)
@@ -34,7 +39,10 @@ public class UserEntryService
 
     public ResponseEntity<?> addWork(String work, String user) {
         Optional<User> userInDB = userRepo.findByuserName(user);
-
+        email.setBody(work+ " is the New Work is Added to Your Stack 🔥🐦‍🔥🪄");
+        email.setFrom("prakashayush414@gmail.com");
+        email.setTo(userInDB.get().getEmail());
+        email.setSubject("New Work is Added to you Stack!!");
         if (userInDB.isPresent()) {
             User foundUser = userInDB.get();
 
@@ -44,6 +52,7 @@ public class UserEntryService
             }
 
             foundUser.getRemainingWork().add(work);
+            service.SendEmail(email);
             return SaveUser(foundUser);  // Assuming SaveUser saves and returns ResponseEntity
         } else {
             return ResponseEntity

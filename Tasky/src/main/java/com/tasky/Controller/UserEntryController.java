@@ -18,7 +18,11 @@ public class UserEntryController
     @Autowired
     private UserEntryService userService;
 
-
+    @PostMapping ("/signing")
+    public ResponseEntity<?> Signing (@RequestBody User user)
+    {
+        return userService.SaveUser(user);
+    }
     @PostMapping ("/AddTask")
     public ResponseEntity<?> AddTask(@RequestBody WorkRequest user)
     {
