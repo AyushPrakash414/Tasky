@@ -1,6 +1,7 @@
 package com.tasky.Service;
 
 import com.tasky.Entity.EmailDTO;
+import com.tasky.Entity.LoginRequest;
 import com.tasky.Entity.User;
 import com.tasky.Repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -87,6 +89,25 @@ public class UserEntryService
         }
     }
 
+    public ResponseEntity<?> LoginService(LoginRequest user)
+    {
+        Optional<User> userInDB = userRepo.findByuserName(user.getUsername());
+        if(userInDB.isPresent())
+        {
+            if (Objects.equals(user.getPassword(), userInDB.get().getPassword()))
+            {
+                return ResponseEntity.status(HttpStatus.OK).body(userInDB.get());
+            }
+            else
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Password is incorrect");
+            }
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
 
 
 }
