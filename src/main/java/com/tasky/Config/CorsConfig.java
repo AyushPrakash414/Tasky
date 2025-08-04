@@ -14,14 +14,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        // LOCAL: Live Server
-                        .allowedOrigins("http://127.0.0.1:5500")
-                        // DEPLOYED FRONTEND URL on Render (replace when known)
                         .allowedOrigins(
-                                "http://127.0.0.1:5500",
-                                "https://your-frontend-app.onrender.com"
+                                "http://127.0.0.1:5500", // local dev
+                                "https://tasky-frontend-ashy.vercel.app" // your live frontend
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
