@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Tasky
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_DATABASE}
+
+email:
+  api:
+    key: ${EMAIL_API_KEY}
